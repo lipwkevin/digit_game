@@ -6,6 +6,7 @@ class DigitDisplay extends React.Component {
     super(props);
     this.state = {
        digit: this.props.digit,
+       disabled: this.props.disabled,
     }
   }
   updateDigit(modifier){
@@ -20,14 +21,14 @@ class DigitDisplay extends React.Component {
   }
   componentDidUpdate(prevProps, prevState){
     if(this.props!==prevProps){
-      this.setState({digit:this.props.digit})
+      this.setState({digit:this.props.digit,disabled:this.props.disabled})
     }
   }
   render() {
    return (
      <div className='digit-display'>
        <div>
-         <button className='btn btn-sm btn-primary' onClick={() => this.updateDigit(1)}>
+         <button disabled={this.state.disabled} className='btn btn-sm btn-primary' onClick={() => this.updateDigit(1)}>
            <i className="fa fa-sort-up"></i>
          </button>
        </div>
@@ -35,7 +36,7 @@ class DigitDisplay extends React.Component {
          <span>{this.state.digit}</span>
        </div>
        <div>
-         <button className='btn btn-sm btn-primary' onClick={() => this.updateDigit(-1)}>
+         <button disabled={this.state.disabled} className='btn btn-sm btn-primary' onClick={() => this.updateDigit(-1)}>
            <i className="fa fa-sort-down"></i>
          </button>
        </div>

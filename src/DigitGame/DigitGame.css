@@ -1,4 +1,9 @@
 .digit-game{
+  /* width: 40%; */
+  margin: auto;
+  min-width: 550px;
+  width: 550px;
+  padding-top: 40px;
 }
 .digit-game-input-group{
   display: inline-flex;
@@ -6,6 +11,21 @@
 }
 .digit-display{
   margin: 12px;
+}
+.group-section{
+  border: 1px solid #ccc!important;
+  padding: 16px;
+  border-radius: 16px;
+  margin:  24px;
+}
+.display-field{
+  text-align: right;
+  min-width: 250px;
+  padding: 0 40px;
+  color: lightgreen;
+}
+.result-display-group{
+  margin-top: 12px;
 }
 .result-dot{
   margin: 0 1em;
@@ -18,4 +38,8 @@
 }
 .grey-dot{
   color:grey;
+}
+.btn-input{
+  margin-left: 12px;
+  margin-right: 12px;
 }
