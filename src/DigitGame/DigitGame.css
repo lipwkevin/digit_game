@@ -1,0 +1,21 @@
+.digit-game{
+}
+.digit-game-input-group{
+  display: inline-flex;
+  margin: 20px;
+}
+.digit-display{
+  margin: 12px;
+}
+.result-dot{
+  margin: 0 1em;
+}
+.green-dot{
+  color:green;
+}
+.yellow-dot{
+  color:yellow;
+}
+.grey-dot{
+  color:grey;
+}
