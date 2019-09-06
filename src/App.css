@@ -1,3 +1,11 @@
 .App {
   text-align: center;
+  background-color: #f3f3f3;
+  margin: 0;
+  height: 100%;
+  padding: 40px;
+}
+html, body {
+    margin: 0;
+    height: 100%;
 }

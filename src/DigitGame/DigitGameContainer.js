@@ -2,6 +2,7 @@ import React from 'react';
 
 import DigitGame from './DigitGame';
 import DigitGameHistory from './DigitGameHistory';
+import DigitGameInfo from './DigitGameInfo';
 
 // const GREEN=2,YELLOW=1,GREY=0;
 const MAX_TRAIL = 9;
@@ -30,11 +31,14 @@ class DigitGameContainer extends React.Component {
          maxTrail={MAX_TRAIL}
          codeLength={CODE_LENGTH}
        />
-       <DigitGameHistory
-         historyInput={this.state.historyInput}
-         historyResult={this.state.historyResult}
-         codeLength={CODE_LENGTH}
-       />
+       <div>
+         <DigitGameHistory
+           historyInput={this.state.historyInput}
+           historyResult={this.state.historyResult}
+           codeLength={CODE_LENGTH}
+         />
+         <DigitGameInfo />
+       </div>
      </div>
    );
   }

@@ -94,7 +94,7 @@ class DigitGame extends React.Component {
              <div className='result-display-group'>
                <span>Result</span>
                {_.last(this.state.result).map((x,index)=>(
-                 <span key={'dot-'+index}className='result-dot'><i className={"fa fa-circle "+((x===GREEN)?('green'):(((x===YELLOW)?('yellow'):('grey'))))+"-dot"}></i></span>
+                 <span key={'dot-'+index} className='result-dot'><i className={"fa fa-circle "+((x===GREEN)?('green'):(((x===YELLOW)?('yellow'):('grey'))))+"-dot"}></i></span>
                ))}
              </div>
            )}
