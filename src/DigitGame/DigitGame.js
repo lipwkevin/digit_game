@@ -6,8 +6,6 @@ import DigitDisplay from './DigitDisplay'
 import './DigitGame.css';
 
 const GREEN=2,YELLOW=1,GREY=0;
-const MAX_TRAIL = 9;
-const CODE_LENGTH = 4;
 const SUCCESS_MESSAGE = 'Access Granted',ERROR_MESSAGE='ERROR !',GAMEOVER_MESSAGE='SYSTEM LOCKED';
 
 class DigitGame extends React.Component {
@@ -19,8 +17,8 @@ class DigitGame extends React.Component {
        input: [],
        result: [],
        resultDisplayed:'',
-       trails: MAX_TRAIL,
-       codeLength:CODE_LENGTH,
+       trails: this.props.maxTrail,
+       codeLength:this.props.codeLength,
     }
   }
   genereateSecretCode(){
@@ -50,8 +48,13 @@ class DigitGame extends React.Component {
     } else {
         this.setState({trails:this.state.trails-1});
     }
-    this.checkSafeCodeResult(input,this.state.safeCode)
-    this.setState({input:input,resultDisplayed:resultDisplayed });
+    var result = this.checkSafeCodeResult(input,this.state.safeCode)
+    var newInput = this.state.input;
+    newInput.push(input)
+    var newResult = this.state.result;
+    newResult.push(result);
+    this.props.updateHistory(newInput,newResult);
+    this.setState({input:newInput,resultDisplayed:resultDisplayed,result:newResult });
   }
   checkSafeCodeResult(input,safeCode){
     var result = [];
@@ -65,14 +68,14 @@ class DigitGame extends React.Component {
       }
     })
     result = result.sort()
-    this.setState({result:result});
+    return result;
   }
   resetSafeCode(){
     this.genereateSecretCode();
     this.setState({
-      input: [0,0,0,0],
+      input: [],
       result: [],
-      trails: MAX_TRAIL,
+      trails: this.props.maxTrail,
       resultDisplayed:'',
       gamePlaying: true,
     })
@@ -87,17 +90,19 @@ class DigitGame extends React.Component {
        <div className='group-section'>
          <p>Trails Remaining: {this.state.trails}</p>
          <div><input className='display-field' disabled value={this.state.resultDisplayed}></input></div>
-         <div className='result-display-group'>
-           {_.isEmpty(this.state.result)?(false):(<span>Result</span>)}
-             {this.state.result.map((x,index)=>(
-               <span key={'dot-'+index}className='result-dot'><i className={"fa fa-circle "+((x===GREEN)?('green'):(((x===YELLOW)?('yellow'):('grey'))))+"-dot"}></i></span>
-             ))}
-         </div>
+           {_.isEmpty(this.state.result)?(false):(
+             <div className='result-display-group'>
+               <span>Result</span>
+               {_.last(this.state.result).map((x,index)=>(
+                 <span key={'dot-'+index}className='result-dot'><i className={"fa fa-circle "+((x===GREEN)?('green'):(((x===YELLOW)?('yellow'):('grey'))))+"-dot"}></i></span>
+               ))}
+             </div>
+           )}
        </div>
        <div className='group-section'>
          <div className='digit-game-input-group'>
            {_.times(this.state.codeLength,(index) => (
-               <DigitDisplay ref={'digit-'+index} key={'digit-'+index} disabled={!this.state.gamePlaying} digit={this.state.input[index]||0}/>
+               <DigitDisplay ref={'digit-'+index} key={'digit-'+index} disabled={!this.state.gamePlaying} digit={(!_.isEmpty(this.state.input)?_.last(this.state.input)[index]:0)}/>
            ))}
          </div>
          <div className=''>

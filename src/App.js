@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DigitGame from './DigitGame/DigitGame.js';
+import DigitGameContainer from './DigitGame/DigitGameContainer';
 
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <DigitGame/>
+          <DigitGameContainer/>
       </header>
     </div>
   );
