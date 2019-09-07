@@ -106,10 +106,28 @@ class DigitGame extends React.Component {
            ))}
          </div>
          <div className=''>
-           <button className='btn btn-input btn-danger' onClick={()=> this.resetSafeCode()}>Reset</button>
+           <button className='btn btn-input btn-danger' type="button" data-toggle="modal" data-target="#retireModal">Reset</button>
            <button className='btn btn-input btn-primary' disabled={!this.state.gamePlaying} onClick={()=> this.checkSafeCode()}>Enter</button>
          </div>
        </div>
+       <div className="modal fade" id="retireModal" tabIndex="-1" role="dialog" aria-labelledby="retireModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>You are about to give up all your progres</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-danger" onClick={()=> this.resetSafeCode()}>RESET</button>
+            </div>
+          </div>
+        </div>
+      </div>
      </div>
    );
   }
