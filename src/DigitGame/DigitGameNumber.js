@@ -11,6 +11,7 @@ class DigitGameNumber extends React.Component {
   }
   updateDigit(modifier){
     var newDigit = this.state.digit + modifier;
+    //to make sure number is not out of bounds
     newDigit = (newDigit >this.props.maxNum) ?(this.props.minNum):(
       newDigit < this.props.minNum ? (this.props.maxNum) : (newDigit)
     )

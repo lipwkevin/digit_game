@@ -1,18 +1,14 @@
+/**
+ * [DigitGameInfo description]
+ * Simply component to display game rules
+ *  - slide open when the help btn is clicked
+ */
+
 import React from 'react';
 
 class DigitGameInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-       historyInput:[],
-       historyResult:[]
-    }
-  }
-  updateHistory(input,result){
-    this.setState({
-      historyInput: input,
-      historyResult: result
-    })
   }
   render() {
    return (

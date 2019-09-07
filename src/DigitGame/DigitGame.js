@@ -26,14 +26,11 @@ class DigitGame extends React.Component {
     return initialState;
   }
   genereateSecretCode(){
-    var arr = Array.from(Array(10).keys());
-    var index;
-    var value;
+    var arr = _.range(this.props.settings.minNum, this.props.settings.maxNum);
     var seq = ''
     for(var i = 0;i<this.state.codeLength;i++){
-      index = _.random(0,arr.length-1)
-      value = _.pullAt(arr,index)
-      seq += value
+      //pop one random digit from arraylist, prevent getting a repeaeted number
+      seq += _.pullAt(arr,_.random(0,arr.length-1))
     }
     this.setState({safeCode:seq})
     console.log(seq)
@@ -43,24 +40,27 @@ class DigitGame extends React.Component {
     for (var key in this.refs) {
       input.push(this.refs[key].getDigit());
     }
+    //check input verses secret code
     var resultDisplayed = (input.join('') === this.state.safeCode)?(this.props.settings.messages.successMessage):(this.props.settings.messages.errorMessage);
-    if(resultDisplayed===this.props.settings.messages.successMessage){
+    if(resultDisplayed===this.props.settings.messages.successMessage){//wining logic
         this.setState({gamePlaying: false});
-    } else if(this.state.trails==0){
+    } else if(this.state.trails==0){//gameover logic
         resultDisplayed = this.props.settings.messages.gameOverMessage;
         this.setState({gamePlaying: false});
     } else {
         this.setState({trails:this.state.trails-1});
     }
     var result = this.checkSafeCodeResult(input,this.state.safeCode)
+    //update input and result history
     var newInput = this.state.input;
     newInput.push(input)
     var newResult = this.state.result;
     newResult.push(result);
-    this.props.updateGameHistory(newInput,newResult);
+    this.props.updateGameHistory(newInput,newResult);//pass the new history to parent
+
     this.setState({input:newInput,resultDisplayed:resultDisplayed,result:newResult });
   }
-  checkSafeCodeResult(input,safeCode){
+  checkSafeCodeResult(input,safeCode){ //compare secret code with input
     var result = [];
     input.forEach((x, index) => {
       if((x.toString()) === safeCode[index]){

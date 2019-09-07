@@ -1,3 +1,8 @@
+/**
+ * [DigitGameHistory description]
+ * A component to display user's previous inputs and results
+ */
+
 import React from 'react';
 
 class DigitGameHistory extends React.Component {
