@@ -1,7 +1,5 @@
 import React from 'react';
 
-const GREEN=2,YELLOW=1;
-
 class DigitGameHistory extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,7 @@ class DigitGameHistory extends React.Component {
   }
   componentDidUpdate(prevProps, prevState){
     if(this.props!==prevProps){
-      this.setState({historyInput:this.props.historyInput,historyResult:this.props.historyResult})
+      this.setState({historyInput:this.props.gameHistory.input,historyResult:this.props.gameHistory.result})
     }
   }
   render() {
@@ -33,7 +31,7 @@ class DigitGameHistory extends React.Component {
                 <th scope="row">{input.join('')}</th>
                 <td>
                   {this.state.historyResult[index].map((x,index2)=>(
-                    <span key={'result-'+index+'-dot-'+index2}className='result-dot'><i className={"fa fa-circle "+((x===GREEN)?('green'):(((x===YELLOW)?('yellow'):('grey'))))+"-dot"}></i></span>
+                    <span key={'result-'+index+'-dot-'+index2}className='result-dot'><i className={"fa fa-circle "+((x==='correct')?('correct'):(((x==='close')?('close'):('wrong'))))+"-dot"}></i></span>
                   ))}
                 </td>
               </tr>

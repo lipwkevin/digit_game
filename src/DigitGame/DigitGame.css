@@ -35,13 +35,13 @@
 .result-dot{
   margin: 0 1em;
 }
-.green-dot{
+.correct-dot{
   color:green;
 }
-.yellow-dot{
+.close-dot{
   color:yellow;
 }
-.grey-dot{
+.wrong-dot{
   color:grey;
 }
 .btn-input{

@@ -3,38 +3,52 @@ import React from 'react';
 import DigitGame from './DigitGame';
 import DigitGameHistory from './DigitGameHistory';
 import DigitGameInfo from './DigitGameInfo';
+import './DigitGame.css';
 
-// const GREEN=2,YELLOW=1,GREY=0;
+import _ from 'lodash';
+
 const MAX_TRAIL = 9;
 const CODE_LENGTH = 4;
-// const SUCCESS_MESSAGE = 'Access Granted',ERROR_MESSAGE='ERROR !',GAMEOVER_MESSAGE='SYSTEM LOCKED';
+const MIN_NUM = 0, MAX_NUM = 9;
+const INDICATORS = {correct:2,close:1,wrong:0};
+const MESSAGES = {successMessage:'Access Granted',errorMessage:'ERROR !',gameOverMessage:'SYSTEM LOCKED'};
 
 class DigitGameContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-       historyInput:[],
-       historyResult:[]
+       gameHistory:{},
+       settings:{
+         maxTrail:MAX_TRAIL,
+         codeLength:CODE_LENGTH,
+         minNum: MIN_NUM,
+         maxNum: MAX_NUM,
+         messages: MESSAGES,
+         indicators: INDICATORS
+       }
     }
   }
-  updateHistory(input,result){
+  updateGameHistory(input,result){
+    var gameHistory;
+    if(_.isEmpty(input)&& _.isEmpty(result)){
+      gameHistory = {};
+    } else {
+      gameHistory =  {input: input,result: result};
+    }
     this.setState({
-      historyInput: input,
-      historyResult: result
+      gameHistory: gameHistory
     })
   }
   render() {
    return (
      <div className='digit-game-container'>
        <DigitGame
-         updateHistory={this.updateHistory.bind(this)}
-         maxTrail={MAX_TRAIL}
-         codeLength={CODE_LENGTH}
+         updateGameHistory={this.updateGameHistory.bind(this)}
+         settings={this.state.settings}
        />
        <div>
          <DigitGameHistory
-           historyInput={this.state.historyInput}
-           historyResult={this.state.historyResult}
+           gameHistory={this.state.gameHistory}
            codeLength={CODE_LENGTH}
          />
          <DigitGameInfo />

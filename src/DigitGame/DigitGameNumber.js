@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class DigitDisplay extends React.Component {
+class DigitGameNumber extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,8 +11,8 @@ class DigitDisplay extends React.Component {
   }
   updateDigit(modifier){
     var newDigit = this.state.digit + modifier;
-    newDigit = (newDigit >=10) ?(0):(
-      newDigit < 0 ? (9) : (newDigit)
+    newDigit = (newDigit >this.props.maxNum) ?(this.props.minNum):(
+      newDigit < this.props.minNum ? (this.props.maxNum) : (newDigit)
     )
     this.setState({digit:newDigit})
   }
@@ -45,4 +45,4 @@ class DigitDisplay extends React.Component {
   }
 }
 
-export default DigitDisplay;
+export default DigitGameNumber;
