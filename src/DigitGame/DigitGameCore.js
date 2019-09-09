@@ -7,7 +7,7 @@ import DigitGameNumber from './DigitGameNumber'
 
 const $ = window.$;
 
-class DigitGame extends React.Component {
+class DigitGameCore extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -44,7 +44,7 @@ class DigitGame extends React.Component {
     var resultDisplayed = (input.join('') === this.state.safeCode)?(this.props.settings.messages.successMessage):(this.props.settings.messages.errorMessage);
     if(resultDisplayed===this.props.settings.messages.successMessage){//wining logic
         this.setState({gamePlaying: false});
-    } else if(this.state.trails==0){//gameover logic
+    } else if(this.state.trails===0){//gameover logic
         resultDisplayed = this.props.settings.messages.gameOverMessage;
         this.setState({gamePlaying: false});
     } else {
@@ -86,7 +86,6 @@ class DigitGame extends React.Component {
   render() {
    return (
      <div className='digit-game'>
-       <h1>Digit Game</h1>
        <div className='group-section'>
          <p>Trails Remaining: {this.state.trails}</p>
          <div><input className='display-field' disabled value={this.state.resultDisplayed}></input></div>
@@ -134,9 +133,9 @@ class DigitGame extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+       </div>
      </div>
    );
   }
 }
-export default DigitGame;
+export default DigitGameCore;
