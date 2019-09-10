@@ -1,9 +1,3 @@
-/**
- * [DigitGameInfo description]
- * Simply component to display game rules
- *  - slide open when the help btn is clicked
- */
-
 import React from 'react';
 
 class DigitGameMenu extends React.Component {

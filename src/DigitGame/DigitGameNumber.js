@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 class DigitGameNumber extends React.Component {
   constructor(props) {
@@ -47,3 +47,7 @@ class DigitGameNumber extends React.Component {
 }
 
 export default DigitGameNumber;
+
+DigitGameNumber.propTypes = {
+  digit: PropTypes.number
+};

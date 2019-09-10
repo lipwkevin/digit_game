@@ -14,7 +14,7 @@ const MESSAGES = {successMessage:'Access Granted',errorMessage:'ERROR !',gameOve
 
 const GAME_STATE = {MENU:'menu',SETTING:'setting',GAMING:'gaming'}
 
-const defaultSettings = { // default settings
+const DEFAULT_SETTINGS = { // default settings
   maxTrail:MAX_TRAIL,
   codeLength:CODE_LENGTH,
   minNum: MIN_NUM,
@@ -28,7 +28,7 @@ class DigitGameContainer extends React.Component {
     this.state = {
        gameHistory:{},
        currentState:GAME_STATE.MENU,
-       settings:defaultSettings,
+       settings:DEFAULT_SETTINGS,
     }
   }
   backToMenu(){
@@ -61,6 +61,8 @@ class DigitGameContainer extends React.Component {
            <DigitGameSetting
              backToMenu = {this.backToMenu.bind(this)}
              updateSettings = {this.updateSettings.bind(this)}
+             currentSettings = {this.state.settings}
+             defaultSettings = {DEFAULT_SETTINGS}
            />
          ),
          [GAME_STATE.GAMING]:(
