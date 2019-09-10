@@ -10,14 +10,10 @@ class DigitGameMenu extends React.Component {
   render() {
    return (
      <div className='digit-game-menu'>
-       <div>
-         <button className='btn btn-lg btn-primary' onClick={this.props.goToGame}>Start Game</button>
-       </div>
-       <div>
-         <button className='btn btn-lg btn-primary' onClick={this.props.goToSetting}>Setting</button>
-       </div>
-       <div>
-         <button className='btn btn-lg btn-primary' type="button" data-toggle="modal" data-target="#aboutModal">About</button>
+       <div className='group-section'>
+           <button className='btn btn-lg btn-menu btn-primary' onClick={this.props.goToGame}>Start Game</button>
+           <button className='btn btn-lg btn-menu btn-primary' onClick={this.props.goToSetting}>Setting</button>
+           <button className='btn btn-lg btn-menu btn-primary' type="button" data-toggle="modal" data-target="#aboutModal">About</button>
        </div>
        <div className="modal fade" id="aboutModal" tabIndex="-1" role="dialog" aria-labelledby="retireModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">

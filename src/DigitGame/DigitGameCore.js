@@ -98,8 +98,8 @@ class DigitGameCore extends React.Component {
              </div>
            )}
        </div>
-       <div className='group-section'>
-         <div className='digit-game-input-group'>
+       <div className='group-section digit-game-input-group'>
+         <div className='digit-game-digit-group'>
            {_.times(this.state.codeLength,(index) => (
                <DigitGameNumber
                  ref={'digit-'+index}

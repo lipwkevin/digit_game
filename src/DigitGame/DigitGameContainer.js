@@ -4,7 +4,7 @@ import DigitGameHeader from './DigitGameHeader';
 import DigitGameGame from './DigitGameGame';
 import DigitGameMenu from './DigitGameMenu';
 import DigitGameSetting from './DigitGameSetting';
-import './DigitGame.css';
+import './DigitGame.sass';
 
 const MAX_TRAIL = 9; // maximum number of trails allowed
 const CODE_LENGTH = 4; // length of combination
