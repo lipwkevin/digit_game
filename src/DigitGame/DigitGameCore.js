@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import DigitGameResult from './DigitGameResult'
-import DigitGameNumber from './DigitGameNumber'
+import DigitGameNumberField from './DigitGameNumberField'
 
 const $ = window.$;
 
@@ -38,12 +38,7 @@ class DigitGameCore extends React.Component {
     console.log(seq)
   }
   checkSafeCode(){
-    var input = [];
-    for (var key in this.refs) {
-      if(this.refs[key].constructor.name=="DigitGameNumber"){
-        input.push(this.refs[key].getDigit());
-      }
-    }
+    var input = this.refs.numberInputField.getDigits();
     //check input verses secret code
     var resultDisplayed = (input.join('') === this.state.safeCode)?(this.props.settings.messages.successMessage):(this.props.settings.messages.errorMessage);
     if(resultDisplayed===this.props.settings.messages.successMessage){//wining logic
@@ -100,18 +95,13 @@ class DigitGameCore extends React.Component {
          result = {_.last(this.state.result)}
        />
        <div className='group-section digit-game-input-group'>
-         <div className='digit-game-digit-group'>
-           {_.times(this.state.codeLength,(index) => (
-               <DigitGameNumber
-                 ref={'digit-'+index}
-                 key={'digit-'+index}
-                 disabled={!this.state.gamePlaying}
-                 digit={(!_.isEmpty(this.state.input)?_.last(this.state.input)[index]:this.props.settings.minNum)}
-                 minNum={this.props.settings.minNum}
-                 maxNum={this.props.settings.maxNum}
-               />
-           ))}
-         </div>
+         <DigitGameNumberField
+           ref = 'numberInputField'
+           inputs = {(!_.isEmpty(this.state.input)?_.last(this.state.input):[])}
+           codeLength = {this.state.codeLength}
+           settings = {this.props.settings}
+           gamePlaying = {this.state.gamePlaying}
+         />
          <div className=''>
            <button className='btn btn-input btn-danger' type="button" data-toggle="modal" data-target="#retireModal">Reset</button>
            <button className='btn btn-input btn-primary' disabled={!this.state.gamePlaying} onClick={()=> this.checkSafeCode()}>Enter</button>
