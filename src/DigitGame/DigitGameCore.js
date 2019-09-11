@@ -40,7 +40,6 @@ class DigitGameCore extends React.Component {
   checkSafeCode(){
     var input = [];
     for (var key in this.refs) {
-      console.log(this.refs[key].constructor.name)
       if(this.refs[key].constructor.name=="DigitGameNumber"){
         input.push(this.refs[key].getDigit());
       }
@@ -55,11 +54,13 @@ class DigitGameCore extends React.Component {
     } else {
         this.setState({trails:this.state.trails-1});
     }
+    var newInput = this.state.input;
+    newInput.push(input)
+    this.setState({input:newInput});
     var result = this.checkSafeCodeResult(input,this.state.safeCode)
     var updateFunction = function(){
       //update input and result history
-      var newInput = this.state.input;
-      newInput.push(input)
+
       var newResult = this.state.result;
       newResult.push(result);
       this.props.updateGameHistory(newInput,newResult);//pass the new history to parent

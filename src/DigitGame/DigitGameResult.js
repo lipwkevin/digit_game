@@ -21,7 +21,6 @@ class DigitGameResult extends React.Component {
     }
   }
   runAnimation(input,result,returnFunction){
-    console.log(returnFunction)
     var audioCount = 1;
     var inputAudio = new Audio(INPUT_SFX_LOCATION);
     inputAudio.addEventListener('ended', function () {
