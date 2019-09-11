@@ -3,11 +3,10 @@
 import React from 'react';
 import _ from 'lodash';
 
+import DigitGameResult from './DigitGameResult'
 import DigitGameNumber from './DigitGameNumber'
 
 const $ = window.$;
-
-const INPUT_SFX_LOCATION = process.env.PUBLIC_URL + "/input.mp3";
 
 class DigitGameCore extends React.Component {
   constructor(props) {
@@ -41,7 +40,10 @@ class DigitGameCore extends React.Component {
   checkSafeCode(){
     var input = [];
     for (var key in this.refs) {
-      input.push(this.refs[key].getDigit());
+      console.log(this.refs[key].constructor.name)
+      if(this.refs[key].constructor.name=="DigitGameNumber"){
+        input.push(this.refs[key].getDigit());
+      }
     }
     //check input verses secret code
     var resultDisplayed = (input.join('') === this.state.safeCode)?(this.props.settings.messages.successMessage):(this.props.settings.messages.errorMessage);
@@ -54,18 +56,6 @@ class DigitGameCore extends React.Component {
         this.setState({trails:this.state.trails-1});
     }
     var result = this.checkSafeCodeResult(input,this.state.safeCode)
-    var audioCount = 1;
-    var inputAudio = new Audio(INPUT_SFX_LOCATION);
-    inputAudio.addEventListener('ended', function () {
-      audioCount++;
-      if(audioCount<=this.state.codeLength){
-        inputAudio.currentTime = 0;
-        inputAudio.play();
-      } else {
-        updateFunction()
-      }
-    }.bind(this), false)
-    inputAudio.play();
     var updateFunction = function(){
       //update input and result history
       var newInput = this.state.input;
@@ -75,6 +65,7 @@ class DigitGameCore extends React.Component {
       this.props.updateGameHistory(newInput,newResult);//pass the new history to parent
       this.setState({input:newInput,resultDisplayed:resultDisplayed,result:newResult });
     }.bind(this)
+    this.refs.resultPanel.runAnimation(input.join(''),resultDisplayed,updateFunction)
   }
   checkSafeCodeResult(input,safeCode){ //compare secret code with input
     var result = [];
@@ -87,8 +78,7 @@ class DigitGameCore extends React.Component {
         result.push('wrong')
       }
     })
-    result = result.sort()
-    return result;
+    return result.sort();
   }
   resetSafeCode(){
     this.genereateSecretCode();
@@ -102,18 +92,12 @@ class DigitGameCore extends React.Component {
   render() {
    return (
      <div className='digit-game'>
-       <div className='group-section'>
-         <p>Trails Remaining: {this.state.trails}</p>
-         <div><input className='display-field' disabled value={this.state.resultDisplayed}></input></div>
-           {_.isEmpty(this.state.result)?(false):(
-             <div className='result-display-group'>
-               <span>Result</span>
-               {_.last(this.state.result).map((x,index)=>(
-                 <span key={'dot-'+index} className='result-dot'><i className={"fa fa-circle "+((x==='correct')?('correct'):(((x==='close')?('close'):('wrong'))))+"-dot"}></i></span>
-               ))}
-             </div>
-           )}
-       </div>
+       <DigitGameResult
+         ref = 'resultPanel'
+         resultDisplayed = {this.state.resultDisplayed}
+         trails = {this.state.trails}
+         result = {_.last(this.state.result)}
+       />
        <div className='group-section digit-game-input-group'>
          <div className='digit-game-digit-group'>
            {_.times(this.state.codeLength,(index) => (

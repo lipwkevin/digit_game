@@ -15,7 +15,7 @@ class DigitGameHistory extends React.Component {
   }
   componentDidUpdate(prevProps, prevState){
     if(this.props!==prevProps){
-      this.setState({historyInput:this.props.gameHistory.input,historyResult:this.props.gameHistory.result})
+      this.setState({historyInput:(this.props.gameHistory.input||[]),historyResult:(this.props.gameHistory.result||[])})
     }
   }
   render() {
