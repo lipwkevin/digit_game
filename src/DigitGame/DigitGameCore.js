@@ -7,10 +7,13 @@ import DigitGameNumber from './DigitGameNumber'
 
 const $ = window.$;
 
+const INPUT_SFX_LOCATION = process.env.PUBLIC_URL + "/input.mp3";
+
 class DigitGameCore extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
+    // this.inputAudio = new Audio(INPUT_SFX_LOCATION);
   }
   getInitialState(){
     //get inital state without deep clone, for reseting
@@ -51,14 +54,27 @@ class DigitGameCore extends React.Component {
         this.setState({trails:this.state.trails-1});
     }
     var result = this.checkSafeCodeResult(input,this.state.safeCode)
-    //update input and result history
-    var newInput = this.state.input;
-    newInput.push(input)
-    var newResult = this.state.result;
-    newResult.push(result);
-    this.props.updateGameHistory(newInput,newResult);//pass the new history to parent
-
-    this.setState({input:newInput,resultDisplayed:resultDisplayed,result:newResult });
+    var audioCount = 1;
+    var inputAudio = new Audio(INPUT_SFX_LOCATION);
+    inputAudio.addEventListener('ended', function () {
+      audioCount++;
+      if(audioCount<=this.state.codeLength){
+        inputAudio.currentTime = 0;
+        inputAudio.play();
+      } else {
+        updateFunction()
+      }
+    }.bind(this), false)
+    inputAudio.play();
+    var updateFunction = function(){
+      //update input and result history
+      var newInput = this.state.input;
+      newInput.push(input)
+      var newResult = this.state.result;
+      newResult.push(result);
+      this.props.updateGameHistory(newInput,newResult);//pass the new history to parent
+      this.setState({input:newInput,resultDisplayed:resultDisplayed,result:newResult });
+    }.bind(this)
   }
   checkSafeCodeResult(input,safeCode){ //compare secret code with input
     var result = [];

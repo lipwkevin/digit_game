@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const SFX_LOCATION = process.env.PUBLIC_URL + "/clicking.wav";
+
 class DigitGameNumber extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +10,7 @@ class DigitGameNumber extends React.Component {
        digit: this.props.digit,
        disabled: this.props.disabled,
     }
+    this.audio = new Audio(SFX_LOCATION);
   }
   updateDigit(modifier){
     var newDigit = this.state.digit + modifier;
@@ -15,6 +18,8 @@ class DigitGameNumber extends React.Component {
     newDigit = (newDigit >this.props.maxNum) ?(this.props.minNum):(
       newDigit < this.props.minNum ? (this.props.maxNum) : (newDigit)
     )
+    this.audio.currentTime = 0 //reset audio sfx
+    this.audio.play();
     this.setState({digit:newDigit})
   }
   getDigit(){
