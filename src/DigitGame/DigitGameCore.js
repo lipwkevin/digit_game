@@ -1,4 +1,4 @@
-/*jslint eqeq: true*/
+/*eslint-disable */
 
 import React from 'react';
 import _ from 'lodash';
@@ -66,7 +66,7 @@ class DigitGameCore extends React.Component {
   checkSafeCodeResult(input,safeCode){ //compare secret code with input
     var result = [];
     input.forEach((x, index) => {
-      if((x.toString()) === safeCode[index]){
+      if((x.toString()) == safeCode[index]){
         result.push('correct')
       } else if (safeCode.includes(x)){
         result.push('close')

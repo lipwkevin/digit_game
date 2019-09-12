@@ -20,6 +20,7 @@ const DEFAULT_SETTINGS = { // default settings
   minNum: MIN_NUM,
   maxNum: MAX_NUM,
   messages: MESSAGES,
+  canRepeat: false,
   // indicators: INDICATORS
 }
 class DigitGameContainer extends React.Component {

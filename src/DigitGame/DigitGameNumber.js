@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,14 +15,21 @@ class DigitGameNumber extends React.Component {
     this.audio = new Audio(SFX_LOCATION);
   }
   updateDigit(modifier){
-    var newDigit = this.state.digit + modifier;
-    //to make sure number is not out of bounds
-    newDigit = (newDigit >this.props.maxNum) ?(this.props.minNum):(
-      newDigit < this.props.minNum ? (this.props.maxNum) : (newDigit)
-    )
+    var newDigit = this.state.digit;
+    do{
+      newDigit = newDigit + modifier;
+      //to make sure number is not out of bounds
+      newDigit = (newDigit >this.props.maxNum) ?(this.props.minNum):(
+        newDigit < this.props.minNum ? (this.props.maxNum) : (newDigit)
+      )
+    } while ((!this.props.canRepeat) && (this.props.currentInputs.indexOf(newDigit)!=-1))
+    this.playAudio()
+    this.props.updateParentState(newDigit,this.props.index)
+    // this.setState({digit:newDigit})
+  }
+  playAudio(){
     this.audio.currentTime = 0 //reset audio sfx
     this.audio.play();
-    this.setState({digit:newDigit})
   }
   getDigit(){
     return this.state.digit;
