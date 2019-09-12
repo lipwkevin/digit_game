@@ -4,6 +4,7 @@
   margin: 0;
   height: 100%;
   padding: 40px;
+  overflow-x: hidden;
 }
 html, body {
     margin: 0;
